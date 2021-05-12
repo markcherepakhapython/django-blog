@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+
+<div class="box">
+    <article class="media">
+        <div class="media-content">
+            {% if bb.image %}
+            <div class="col-md-auto">
+                <img src="{{ post.image.url }}" class="main-image">
+            </div>
+            {% endif %}
+            <h2 class="is-size-5">
+                <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+            </h2>
+            <p class="content">{{ post.body }}</p>
+            <p class="author has-text-right is-italic"> {{ post.author }}</p>
+        </div>
+    </article>
+</div>
+
+{% if ais %}
+<div class="d-flex justify-content-between flex-wrap mt-5">
+    {% for ai in ais %}
+    <div>
+        <img class="additional-image" src="{{ ai.image.url }}">
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<h4 class="mt-5">Новый комментарий</h4>
+<form method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+    {% buttons submit='Добавить' %}{% endbuttons %}
+</form>
+{% if comments %}
+<div class="mt-5">
+    {% for comment in comments %}
+    <div class='my-2 p-2 border'>
+        <h5>
+            {{ comment.author }}
+        </h5>
+        <p>{{ comment.content }}</p>
+        <p class="text-right font-italic">{{ comment.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<nav class="level">
+    <div class="level-left"></div>    
+    <div class="level-right">
+        <p class="level-item"><a class="button is-primary" href="{% url 'post_edit' post.pk %}">Edit blog post</a></p>
+        <p class="level-item"><a class="button is-info" href="{% url 'post_delete' post.pk %}">Delete blog post</a></p>
+    </div>
+</nav>
+
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Django Blog</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    </head>
+
+    <body>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <nav class="navbar" role="navigation" aria-label="main navigation">
+                    <div class="navbar-brand">                                           
+                        <a class="navbar-item has-text-danger title" href="{% url 'home' %}">
+                            <span class="icon">
+                                <i class="fas fa-home"></i>
+                            </span> 
+                            <span class="ml-4">Django Blog</span> 
+                        </a>                        
+                    </div>
+                    <div class="navbar-menu">
+                        <div class="nabar-start">
+                            <a class="navbar-item subtitle mt-2" href="{% url 'post_new' %}">New blog post</a>
+                        </div>
+                        <div class="navbar-end">
+                            {% if user.is_authenticated %}
+                                <span class="navbar-item">Hi {{ user.username }}!</span>                                
+                                <a class="navbar-item" href="{% url 'logout'%}">Log out</a>                                
+                            {% else %}
+                                <span class="navbar-item" >You are not logged in</span>
+                                <a class="navbar-item" href="{% url 'login' %}">Log in</a>
+                                <a class="navbar-item" href="{% url 'signup' %}">Sign up</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </nav>
+            </div>            
+        </section>
+
+        <section class="section is-fullheight">
+            <div class="container">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </section>
+        <footer class="footer has-background-black has-text-primary-light">
+            <div class="has-text-centered">
+                <p class="is-size-4">Made by kit</p>
+            </div>
+        </footer>
+    </body>
+</html>

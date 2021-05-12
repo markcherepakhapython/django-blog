@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for post in object_list %}
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <h2 class="is-size-5">
+                        <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                    </h2>
+                    <p class="content">{{ post.body }}</p>
+                    <p class="author has-text-right is-italic"> {{ post.author }}</p>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+{% endblock content %}
