@@ -33,7 +33,6 @@
 <h4 class="mt-5">Новый комментарий</h4>
 <form method="POST">
     {% csrf_token %}
-    {% bootstrap_form form layout='horizontal' %}
     {% buttons submit='Добавить' %}{% endbuttons %}
 </form>
 {% if comments %}
@@ -53,8 +52,8 @@
 <nav class="level">
     <div class="level-left"></div>    
     <div class="level-right">
-        <p class="level-item"><a class="button is-primary" href="{% url 'post_edit' post.pk %}">Edit blog post</a></p>
-        <p class="level-item"><a class="button is-info" href="{% url 'post_delete' post.pk %}">Delete blog post</a></p>
+        <p class="level-item"><a class="button is-primary" href="{% url 'post_edit' post.pk %}">{% buttons submit='Edit blog post' %}{% endbuttons %}</a></p>
+        <p class="level-item"><a class="button is-info" href="{% url 'post_delete' post.pk %}">{% buttons submit='Delete blog post' %}{% endbuttons %}</a></p>
     </div>
 </nav>
 

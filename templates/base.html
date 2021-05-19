@@ -1,3 +1,4 @@
+{% load bootstrap4 %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -5,52 +6,45 @@
         <title>Django Blog</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
-        <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+        {% bootstrap_css %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        {% bootstrap_javascript jquery='slim' %}
     </head>
 
     <body>
-        <section class="hero is-info">
-            <div class="hero-body">
-                <nav class="navbar" role="navigation" aria-label="main navigation">
-                    <div class="navbar-brand">                                           
-                        <a class="navbar-item has-text-danger title" href="{% url 'home' %}">
-                            <span class="icon">
-                                <i class="fas fa-home"></i>
-                            </span> 
-                            <span class="ml-4">Django Blog</span> 
-                        </a>                        
-                    </div>
-                    <div class="navbar-menu">
-                        <div class="nabar-start">
-                            <a class="navbar-item subtitle mt-2" href="{% url 'post_new' %}">New blog post</a>
-                        </div>
-                        <div class="navbar-end">
-                            {% if user.is_authenticated %}
-                                <span class="navbar-item">Hi {{ user.username }}!</span>                                
-                                <a class="navbar-item" href="{% url 'logout'%}">Log out</a>                                
-                            {% else %}
-                                <span class="navbar-item" >You are not logged in</span>
-                                <a class="navbar-item" href="{% url 'login' %}">Log in</a>
-                                <a class="navbar-item" href="{% url 'signup' %}">Sign up</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </nav>
-            </div>            
-        </section>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">                                           
+                <a class="navbar-item text-danger title" href="{% url 'home' %}">
+                    <header class="mb-4">
+                        <h1 class="display-1 text-center p-3 mb-2 bg-white text-dark">Django-blog</h1>
+                    </header> 
+                </a>                        
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item subtitle mt-2" href="{% url 'post_new' %}">{% buttons submit='New blog post' %}{% endbuttons %}</a>
+                </div>
+                <div class="navbar-end">
+                    {% if user.is_authenticated %}
+                        <span class="navbar-item">Hi {{ user.username }}!</span>                                
+                        <a class="navbar-item" href="{% url 'logout'%}">{% buttons submit='Log out' %}{% endbuttons %}</a>                                
+                    {% else %}
+                        <span class="navbar-item" >You are not logged in</span>
+                        <a class="navbar-item" href="{% url 'login' %}">{% buttons submit='Log in' %}{% endbuttons %}</a>
+                        <a class="navbar-item" href="{% url 'signup' %}">{% buttons submit='Sign up' %}{% endbuttons %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
 
-        <section class="section is-fullheight">
+        <section class="section is-fullheight col border py-2">
             <div class="container">
                 {% block content %}
                 {% endblock content %}
             </div>
         </section>
-        <footer class="footer has-background-black has-text-primary-light">
-            <div class="has-text-centered">
-                <p class="is-size-4">Made by kit</p>
-            </div>
+        <footer class="mt-3">
+            <div class="p-3 mb-2 text-center bg-dark text-white is-size-4">Made by kit</div>   
         </footer>
     </body>
 </html>
