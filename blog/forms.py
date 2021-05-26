@@ -1,4 +1,3 @@
-from captcha.fields import CaptchaField
 from django import forms
 from django.forms import inlineformset_factory
 
@@ -14,8 +13,6 @@ class UserCommentForm(forms.ModelForm):
 
 
 class GuestCommentForm(forms.ModelForm):
-    captcha = CaptchaField(label='Введите текст с картинки',
-                           error_messages={'invalid':'Неправильный текст'})
 
     class Meta:
         model = Comment
