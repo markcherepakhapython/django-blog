@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from .models import Post, AdditionalImage, Comment
@@ -28,16 +29,20 @@ class BlogCreateView(CreateView):
     template_name = 'post_new.html'
     fields = ['title', 'author', 'body']
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Post
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     image = AdditionalImage
     template_name = 'post_edit.html'
     fields = ['title', 'body']    
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
 
     model = Post
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     image = AdditionalImage
     template_name = 'post_delete.html'
     success_url = reverse_lazy('home')

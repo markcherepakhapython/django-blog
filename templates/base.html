@@ -6,7 +6,8 @@
         <title>Django Blog</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% bootstrap_css %}
+				{% bootstrap_css %}
+				<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         {% bootstrap_javascript jquery='slim' %}
     </head>
@@ -43,8 +44,10 @@
                 {% endblock content %}
             </div>
         </section>
-        <footer class="mt-3">
-            <div class="p-3 mb-2 text-center bg-dark text-white is-size-4">Made by kit</div>   
-        </footer>
+				<footer class="footer">
+					<div>
+						<p class="p-3 mb-2 text-center bg-dark text-white is-size-4">Made by kit</p>
+					</div>
+				</footer>
     </body>
 </html>

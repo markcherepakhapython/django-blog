@@ -15,7 +15,7 @@
             <h2 class="is-size-5">
                 <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
             </h2>
-            <p class="content">{{ post.body }}</p>
+            <div>{{ post.body|linebreaks }}</div>
             <p class="author has-text-right is-italic"> {{ post.author }}</p>
         </div>
     </article>
@@ -51,11 +51,16 @@
 {% endif %}
 
 <nav class="level">
-    <div class="level-left"></div>    
-    <div class="level-right">
-        <p class="level-item"><a class="button is-primary" href="{% url 'post_edit' post.pk %}">{% buttons submit='Edit blog post' %}{% endbuttons %}</a></p>
-        <p class="level-item"><a class="button is-info" href="{% url 'post_delete' post.pk %}">{% buttons submit='Delete blog post' %}{% endbuttons %}</a></p>
+    {% if user.is_authenticated and user == post.author %}    
+    <div class="container">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<a class="btn btn-primary me-md-2" href="{% url 'post_edit' post.pk %}" type="button">Edit blog post</a>
+				<a class="btn btn-primary ml-2" href="{% url 'post_delete' post.pk %}" type="button">Delete blog post</a>
+			</div>
     </div>
+		{% else %}
+		<a class="nav-link" href="{% url 'signup' %}">{% buttons submit='Login' %}{% endbuttons %}</a>
+		{% endif %}
 </nav>
 
 {% endblock content %}
